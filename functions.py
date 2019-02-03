@@ -25,14 +25,10 @@ def scaleUp(image):
     return image
 
 
-def binarize(image,i):
-    #gray = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
+def binarize(image):
+
     blur = cv.GaussianBlur(image, (7, 7), 0)
-    if 'binary' in i:
-        ret, th = cv.threshold(blur, 135, 255, cv.THRESH_BINARY)
-    else:
-        ret, th = cv.threshold(blur, 0, 255, cv.THRESH_OTSU)
-    #th = cv.adaptiveThreshold(blur, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV, 15, 3)
+    ret, th = cv.threshold(blur, 0, 255, cv.THRESH_OTSU)
     return th
 
 
@@ -84,11 +80,12 @@ def ShadowReduce(img):
     return gray_img
 
 
-def AutoCanny(img):
+def AutoCanny(img, dest = None):
     hi_thrs1, thrsh_src = cv.threshold(img, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
     low_thrs1 = 0.5 * hi_thrs1
 
     edge = cv.Canny(img, low_thrs1, hi_thrs1)
+
 
     return edge
 
