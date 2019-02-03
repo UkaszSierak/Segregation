@@ -5,19 +5,27 @@ DTYPE = np.int
 
 ctypedef np.int_t DTYPE_t
 
-cpdef ShadowReduce(np.ndarray[DTYPE_t, ndim=3] im, np.ndarray[DTYPE_t, ndim=2] gray_img, int y1, int x1, int y2, int x2):
+cpdef ShadowReduce(np.ndarray[DTYPE_t, ndim=3] im, np.ndarray[DTYPE_t, ndim=2] gray_img):
 
-    cdef int  sum,rows, cols
-    cdef DTYPE_t max, pix,
-    for cols in range(x1,x2):
-        for rows in range(y1,y2):
+    cdef int row_idx, column_idx
+    cdef DTYPE_t max
+
+    for row_idx ,row in enumerate(im):
+
+        for column_idx, item  in enumerate(row):
+
             sum = 0
-            max = im[rows][cols][im[rows][cols].argmax(0)]
-            for cell in range(3):
-                pix = im.item(rows,cols,cell)
-                sum += max - pix
+            max = item.max()
+
+            for value in item:
+
+                sum += max - value
+
             if sum > 255:
-                gray_img.itemset((rows,cols), 255)
+
+                gray_img.itemset((row_idx, column_idx), 255)
+
             else:
 
-                gray_img.itemset((rows,cols), sum)
+                gray_img.itemset((row_idx, column_idx), sum)
+
