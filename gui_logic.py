@@ -16,6 +16,7 @@ import re
 import numpy as np
 import math
 import time
+import testowanie #plik z testowymi funkcjami
 
 
 
@@ -34,7 +35,7 @@ class GuiLogic(QtWidgets.QMainWindow):
         self.recogThread = None
 
 
-        self.pushButton_12.clicked.connect(self.connect_device)#umieścić łączenie urządzenia w wątku
+        self.pushButton_12.clicked.connect(self.connect_device)
         self.pushButton_13.clicked.connect(self.DisConnect)
 
         self.pushButton.clicked.connect(self.CallAction)
@@ -188,7 +189,8 @@ class GuiLogic(QtWidgets.QMainWindow):
                 string.append('1;1;EDATA' + str(j + 60) + ' CLOSE #1' + '\r\n')
                 string.append('1;1;EDATA' + str(j + 70) + ' *L' + pozycja + '\r\n')
                 string.append('1;1;EDATA' + str(j + 80) + ' If M01=0 Then GoTo *L' + pozycja + '\r\n')
-                string.append('1;1;EDATA' + str(j + 90) + ' P' + pozycja + '=(' + str(list2[0]) + ',' + str(list2[1]) + ',' + str(list2[2]) + ',' + str(list2[3]) + ',' + str(list2[4]) + ',' + str(list2[5]) + ')(0,0)' + '\r\n')
+                string.append('1;1;EDATA' + str(j + 90) + ' P' + pozycja + '=(' + str(list2[0]) + ',' + str(list2[1]) + ',' + str(list2[2]) + ',' + str(list2[3]) + ',' + str(list2[4]) + ',' + str(list2[5]) + ')(0,0)' + '\r\n'
+                )
                 string.append('1;1;EDATA' + str(j + 100) + ' MVS P' + pozycja + '\r\n')
 
                 string.append('1;1;EDATA' + str(j + 110) + ' HCLOSE 1' + '\r\n')

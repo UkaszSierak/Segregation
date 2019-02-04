@@ -81,6 +81,7 @@ class RobotControl(object):
         return self.__make_command(action)
 
 
+
 if __name__ == '__main__':
 
     c = RobotControl('USB')
