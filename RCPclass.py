@@ -1,30 +1,16 @@
 import re, sys
+import RobotControlClass
 
-class RobotControlProgram:
+class RobotControlProgram(RobotControlClass.RobotControl):
 
-    def __init__(self, object_locations: list, object_containers_location: dict):
+    def __init__(self, objects, object_containers_location, communication_port: str):
+        super().__init__(communication_port)
         self.objects_locations = object_locations
         self.objects_containters_location = object_containers_location
         self.message_string = None
         self.programslot = '100'
 
-    def _points_definition(self):
 
-
-    def _add_pre_part(self):
-
-        self.message_string += '1;1;LOAD={}\r\n'.format(self.programslot)
-        self.message_string += '1;1;ECLR\r\n'
-
-    def add_main_part(self):
-
-    def add_closing(self):
-
-    def generate_program(self):
-
-        self._add_pre_part()
-        self._add_main_part()
-        self._add_closing()
 
     def chopp(self):
 
@@ -49,3 +35,20 @@ class RobotControlProgram:
                 except:
                     pass
         return chopped_message
+
+
+dropp_locations = {'small': [124.34, 546.23, 675.45, 432.34, 675.45, 234.34],
+                   'medium': [224.34, 546.23, 675.45, 432.34, 675.45, 234.34],
+                   'large': [324.34, 546.23, 675.45, 432.34, 675.45, 234.34]}
+blocks = {'block01':{'location': [327.6703,-252.0321,125.6951,0.00,178.7204,0.0000], 'container': 'small'},
+          'block02':{'location': [627.6703,-252.0321,125.6951,0.00,178.7204,0.0000], 'container': 'medium'}}
+
+
+blocks2 = [{'location': (327.6703,-252.0321,125.6951,0.00,178.7204,0.0000), 'container': 'small'},
+           {'location': (627.6703,-252.0321,125.6951,0.00,178.7204,0.0000), 'container': 'medium'}]
+
+containers = {'small': (727.6703,-252.0321,125.6951,0.00,178.7204,0.0000),
+              'medium': (827.6703,-252.0321,125.6951,0.00,178.7204,0.0000),
+              'large': (927.6703,-252.0321,125.6951,0.00,178.7204,0.0000)}
+
+c = RobotControlClass.RobotControl('dupeczki')

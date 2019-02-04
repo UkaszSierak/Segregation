@@ -26,7 +26,7 @@ def Recognition(image,name):
     gray[gray < 255] = 0
 
 
-    img, contours, hierarchy = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    img, contours, hierarchy = cv.findContours(edges, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     im = np.asanyarray(image, dtype=np.int)
 
@@ -44,9 +44,8 @@ def Recognition(image,name):
 
 
     bin = binarize(gray,'otsu')
-    cv.imwrite('bez_shadow.png', bin2)
-    cv.imwrite('zshadow'+name+'.png', bin)
-
+    #cv.imwrite('bez_shadow.png', bin2)
+    #cv.imwrite('zshadow'+name+'.png', bin)
     edges = AutoCanny(bin)
 
     img, contours, hierarchy = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
@@ -83,7 +82,7 @@ def Recognition(image,name):
 
     return obj_finall
 
-
+"""
 def RecognitionOld(image):
     height, width, chan = image.shape
     im = np.asanyarray(image, dtype=np.int)
@@ -126,3 +125,9 @@ def RecognitionOld(image):
             obj_finall.append(objct)
 
     return obj_finall
+"""
+
+if __name__ == '__main__':
+    image = cv.imread('test5.jpg')
+    cv.imshow('name', image)
+    cv.waitKey()
