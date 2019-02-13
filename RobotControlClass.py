@@ -1,9 +1,19 @@
-import melfa_IV
 """
-Trzeba pomyslec ktre instrukcje wjada ze zmian dziaanai na slotach 
+    RobotControl class methods allows to create a commands described by R3 protocol, released by Mitsubishi.
+
+    Syntax of command :
+                        [<Robot No.>];[<Slot No>];<Command><Argument>
+
+                                <Robot No.> -The robot number to be operated is specified. (0, 1, 2 or 3)
+                                  <Slot No> -The slot number to be operated is specified. (0, 1 - 33)
+                        <Command><Argument> - It differs in each command, and refer to the explanation of each command
+
+                        Example:
+                                1;1;CNTLON
+
+    All commands and options are described in R3 Protocol by Mitsubishi
 
 """
-
 
 class RobotControl(object):
 
@@ -32,35 +42,35 @@ class RobotControl(object):
             pass
         return self.__extract_header(slot) + action + self.__finish_line()
 
-    def open_port(self):
+    def openPort(self):
         action = 'OPEN={}'.format(self.communication_port)
         return self.__make_command(action)
 
-    def enable_control(self, value: str):
+    def enableControl(self, value: str):
         action = 'CNTL{}'.format(value)
         return self.__make_command(action)
 
-    def turn_servo(self, value: str):
+    def turnServo(self, value: str):
         action = 'SRV{}'.format(value)
         return self.__make_command(action)
 
-    def change_override(self, value):
+    def changeOverride(self, value):
         action = 'OVRD={}'.format(value)
         return self.__make_command(action)
 
-    def open_grip(self, grip_number=1):
+    def openGrip(self, grip_number=1):
         action = 'HNDON{}'.format(grip_number)
         return self.__make_command(action)
 
-    def close_grip(self, grip_number=1):
+    def closeGrip(self, grip_number=1):
         action = 'HNDOFF{}'.format(grip_number)
         return self.__make_command(action)
 
-    def read_current_position(self):
+    def readPosition(self):
         action = 'PPOSF'
         return self.__make_command(action)
 
-    def close_port(self):
+    def closePort(self):
         action = 'CLOSE'
         return self.__make_command(action)
 
@@ -68,21 +78,19 @@ class RobotControl(object):
         action = 'SAVE'
         return self.__make_command(action)
 
-    def run_program(self, program_number, mode):
+    def runProgram(self, program_number, mode):
         action = 'RUN{};{}'.format(program_number, mode)
         return self.__make_command(action)
 
-    def jog_operation(self, jog_mode, direction, inching=0):
+    def jogOperation(self, jog_mode, direction, inching=0):
         action = 'JOG{};00;{};{}'.format(jog_mode, direction, inching)
         return self.__make_command(action)
 
-    def edit_line(self, offset, command):
+    def editLine(self, offset, command):
         action = 'EDATA{} {}'.format(offset, command)
         return self.__make_command(action)
 
 
-
-#if __name__ == '__main__':
 
 
 
