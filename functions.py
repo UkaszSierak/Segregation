@@ -20,7 +20,7 @@ def GetROIpoints(points):
 
     return corners
 
-def scaleUp(image):
+def scaleUp(image: np.array):
     max_dimension = max(image.shape)
     scale = 700 / max_dimension
     image = cv.resize(image, None, fx=scale, fy=scale)
