@@ -15,8 +15,8 @@ import serial
 class COM:
     def __init__(self, baudrate,port,databits,parity,stopbits):
         self.serial = serial.Serial()
-        self.serial.baudrate = self._getParam(baudrate)
-        self.serial.port = self._getParam(port)
+        self.serial.baudrate = baudrate
+        self.serial.port = port
         self.serial.bytesize = self._getParam(databits)
         self.serial.parity = self._getParam(parity)
         self.serial.stopbits = self._getParam(stopbits)
